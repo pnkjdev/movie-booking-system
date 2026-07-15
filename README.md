@@ -168,5 +168,6 @@ All knobs in `application.yml` under `app.*` (override via env vars):
 ## Repository notes
 
 - `docs/Movie Ticket Booking System.pdf` — the original requirement document (raw file used during development).
+- `docs/AI-WORKFLOW.md` — how the AI-assisted workflow was run: priorities, human-set invariants, review interventions, and verification discipline.
 - `CLAUDE.md` — the AI-agent guidance file used during development (also serves as the Agents.md).
 - Commit history reflects the actual build order: scaffold → domain → security → catalog → discounts → holds → notifications → booking/payment → refunds/cancellation → seed → tests → docs.
