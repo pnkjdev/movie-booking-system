@@ -1,0 +1,14 @@
+spring:
+  datasource:
+    # Generous lock timeout so concurrency tests block instead of erroring.
+    url: jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1;LOCK_TIMEOUT=10000
+
+app:
+  seed:
+    enabled: false
+  jobs:
+    # Background jobs effectively disabled: tests drive expiry/dispatch
+    # deterministically by calling the service methods directly.
+    hold-sweeper-interval-ms: 600000
+    reminder-interval-ms: 600000
+    notification-dispatch-interval-ms: 600000
