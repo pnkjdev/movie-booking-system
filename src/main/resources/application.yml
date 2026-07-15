@@ -1,0 +1,61 @@
+spring:
+  application:
+    name: movie-booking-system
+
+  datasource:
+    url: jdbc:h2:mem:moviedb;DB_CLOSE_DELAY=-1
+    driver-class-name: org.h2.Driver
+    username: sa
+    password: ""
+
+  jpa:
+    hibernate:
+      ddl-auto: create
+    open-in-view: false
+    properties:
+      hibernate:
+        format_sql: false
+
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+    tags-sorter: alpha
+    operations-sorter: alpha
+
+logging:
+  level:
+    com.moviebooking: INFO
+
+app:
+  # Zone used to interpret show times, weekend pricing and refund cutoffs.
+  timezone: Asia/Kolkata
+  currency: INR
+
+  security:
+    # Dev-only secret; supply via env var APP_SECURITY_JWT_SECRET in real deployments.
+    jwt-secret: "dev-only-secret-key-movie-booking-system-hs256-0123456789"
+    jwt-expiry-minutes: 1440
+
+  booking:
+    # How long a seat hold stays alive; payment must complete within this window.
+    hold-ttl-seconds: 420
+    max-seats-per-hold: 10
+
+  pricing:
+    # Percentage surcharge applied to every seat for shows starting on Sat/Sun.
+    weekend-surcharge-percent: 25
+
+  jobs:
+    hold-sweeper-interval-ms: 15000
+    reminder-interval-ms: 60000
+    # A reminder is sent when a confirmed booking's show starts within this window.
+    reminder-lead-minutes: 120
+    notification-dispatch-interval-ms: 10000
+
+  seed:
+    enabled: true
