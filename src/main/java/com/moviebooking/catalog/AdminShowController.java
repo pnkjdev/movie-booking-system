@@ -1,5 +1,6 @@
 package com.moviebooking.catalog;
 
+import com.moviebooking.booking.ShowCancellationService;
 import com.moviebooking.catalog.dto.ShowDtos.ShowCreateRequest;
 import com.moviebooking.catalog.dto.ShowDtos.ShowResponse;
 import io.swagger.v3.oas.annotations.Operation;
@@ -24,6 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class AdminShowController {
 
     private final ShowAdminService showAdminService;
+    private final ShowCancellationService showCancellationService;
 
     @Operation(summary = "Schedule a show (creates per-seat inventory; rejects overlaps)")
     @PostMapping
@@ -35,5 +37,11 @@ public class AdminShowController {
     @GetMapping("/{id}")
     public ShowResponse getShow(@PathVariable Long id) {
         return showAdminService.toResponse(id);
+    }
+
+    @Operation(summary = "Cancel a show: all confirmed bookings refunded 100%, active holds released")
+    @PostMapping("/{id}/cancel")
+    public ShowCancellationService.ShowCancellationResult cancelShow(@PathVariable Long id) {
+        return showCancellationService.cancelShow(id);
     }
 }
